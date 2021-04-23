@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+import Contact from './components/contacts/Contact';
+import NavBar from './components/navBar/NavBar';
+import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <NavBar title="Contact list" />
+      
+      
+      <Contact />
+      <Contact name="zakaria" tel="06 358 282" email="z@email.com" />
+      <Contact name="aziz" tel="06 8 282" email="a@email.com" />
+      <Contact name="mjide" tel="06 358 " email="m@email.com" />
+
     </div>
   );
 }
