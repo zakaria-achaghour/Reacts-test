@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
+import { Consumer } from '../context'
 import './contact.css'
 
  class Contact extends Component {
@@ -12,24 +13,31 @@ import './contact.css'
             showContactToggle: !this.state.showContactToggle
          });
      }
-     onDeleteClick=() =>{
-         console.log('delete');
-         this.props.deleteContactChild()
+     onDeleteClick = (id,dispatch) =>{
+         
+           dispatch({
+            type: 'DELETE_CONTACT',
+            payload: id
+        })
      }
     render() {
-        const { name , tel , email } = this.props.data;
+        const { id ,name , tel , email } = this.props.data;
 
         return (
-           
-                <div className="card">
-                 
-                  <div className="card-body">
+            <Consumer>
+                {value =>{
+
+                    const { dispatch } = value;
+                    return(
+                    <div className="card">
+                                    
+                    <div className="card-body">
                     <h4 className="card-title">
                         {name}
                         <i style={{cursor: 'pointer'}} onClick={this.showContact.bind(this,'zakaria')} className="fa fa-sort-down"></i>
                         <i style={{ color: 'red',float: 'right', cursor: 'pointer'}}
-                             className="fa fa-times" aria-hidden="true"
-                            onClick={this.onDeleteClick}></i>
+                                className="fa fa-times" aria-hidden="true"
+                            onClick={this.onDeleteClick.bind(this, id, dispatch )}></i>
                         </h4>
                         {(this.state.showContactToggle) ? (
                         <div className="card-text">
@@ -41,11 +49,16 @@ import './contact.css'
                             </ul>
                         </div>
                         ) : null}
+
+                    </div>
+                    </div>
+                    ) 
+                    }
+                }
                  
-                  </div>
-                </div>
-          
+            </Consumer>
         )
+       
     }
 }
 
@@ -57,7 +70,7 @@ Contact.defaultProps = {
 
 Contact.propTypes = {
     data: PropTypes.object.isRequired,
-    deleteContactChild: PropTypes.func.isRequired
+    // deleteContactChild: PropTypes.func.isRequired
    
    
 }
