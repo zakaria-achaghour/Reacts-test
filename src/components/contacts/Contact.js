@@ -21,7 +21,7 @@ import './contact.css'
         })
      }
     render() {
-        const { id ,name , tel , email } = this.props.data;
+        const { id ,name , phone , email } = this.props.data;
 
         return (
             <Consumer>
@@ -43,7 +43,7 @@ import './contact.css'
                         <div className="card-text">
                             <ul className="list-group">
                                 
-                                <li className="list-group-item">{tel}</li>
+                                <li className="list-group-item">{phone}</li>
                                 <li className="list-group-item">{email}</li>
 
                             </ul>
@@ -64,7 +64,7 @@ import './contact.css'
 
 Contact.defaultProps = {
     name: " my name",
-    tel: "06 000 000",
+    phone: "06 000 000",
     email: "user@email.com"
 }
 
