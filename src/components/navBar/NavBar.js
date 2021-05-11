@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
+
 import './navbar.css'
 
  const NavBar = (props) => {
@@ -8,14 +10,17 @@ import './navbar.css'
        
             
             <nav className="navbar navbar-expand-sm navbar-dark bg-warning">
-                <a className="navbar-brand" href="/#">{ title }</a>
+                <a className="navbar-brand" href="/">{ title }</a>
               
                     <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
                         <li className="nav-item active">
-                            <a className="nav-link" href="/#">Home <span className="sr-only">(current)</span></a>
+                            <Link className="nav-link" to="/">List Contact <span className="sr-only">(current)</span></Link>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/#">Link</a>
+                            <Link className="nav-link" to="/contact/add">Add Contact</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/about">About</Link>
                         </li>
                         
                     </ul>
