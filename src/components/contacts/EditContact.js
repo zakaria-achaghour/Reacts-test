@@ -3,13 +3,24 @@ import { Consumer } from '../context'
 import InputTextGroup from '../helpers/InputTextGroup.js'
 import axios from 'axios'
 
- class AddContact extends Component {
+ class EditContact extends Component {
      state= {
          name: '',
          phone: '',
          email: '',
          erros: {}
         
+        }
+
+        async componentDidMount(){
+            const id = this.props.match.params.id
+          const res = await  axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
+          this.setState({
+              name:res.data.name,
+              phone:res.data.phone,
+              email:res.data.email,
+
+          })
         }
         onChangeInput = (e) =>this.setState({[e.target.name]: e.target.value})
 
@@ -30,13 +41,14 @@ import axios from 'axios'
                 return;
 
             }
-           const newContact = { name: name,phone: phone, email: email,}
+           const updateContact = { name: name,phone: phone, email: email,}
+           const id = this.props.match.params.id
 
            try {
-                    const res = await axios.post('https://jsonplaceholder.typicode.com/users',newContact)
+                    const res = await axios.put(`https://jsonplaceholder.typicode.com/users/${id}`,updateContact)
 
                         dispatch({
-                                type: 'ADD_CONTACT',
+                                type: 'UPDATE_CONTACT',
                                 payload: res.data
                                 })
              }catch(e) {
@@ -65,6 +77,7 @@ import axios from 'axios'
                           <div className="container mb-5">
                             <form  onSubmit={this.submit.bind(this,dispatch , value.contacts.length)}>
                             <div className="card">
+                                <h4>Edit Contact</h4>
                             <div className="card-body">
                                 
                                   
@@ -86,7 +99,7 @@ import axios from 'axios'
                                                             error={erros.email}/>
                                             
                                             <div className="col-md-12">
-                                                <button type="submit" className="btn btn-success btn-block">Add</button>
+                                                <button type="submit" className="btn btn-danger btn-block">Update</button>
                                             </div>    
                                      
             
@@ -100,4 +113,4 @@ import axios from 'axios'
    
     }
 }
-export default  AddContact
+export default  EditContact
